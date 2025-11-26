@@ -710,7 +710,7 @@ const toggleFaqAccordion = (index) => {
       <section class="dubai-centre">
         <div class="container">
           <div class="hero-image" data-aos="fade-up">
-            <img src="/assets/homepage/siniya/dine.jpg" alt="Dubai skyline at night" />
+            <img src="/assets/homepage/siniya/dine.jpg" alt="Dine banner" />
             <div class="hero-text">
               <h2>Right in the <span>Centre of Dubai</span></h2>
             </div>
