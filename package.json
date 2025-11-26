@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "start": "next start",
-    "build": "next build",
+    "build": "npx @cloudflare/next-on-pages@1 build"
   },
   "dependencies": {
     "aos": "^2.3.4",
