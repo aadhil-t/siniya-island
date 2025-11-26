@@ -1,0 +1,13 @@
+.image-section{
+    .outer{
+        img{
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            height: auto;
+            z-index: 99;
+            position: relative;
+            max-height: 694px;
+        }
+    }
+}

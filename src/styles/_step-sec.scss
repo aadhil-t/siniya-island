@@ -1,0 +1,144 @@
+@import "../styles/variables";
+
+.video-section {
+  padding-top: 13.5rem;
+  position: relative;
+  overflow: hidden;
+  background: white;
+
+  @media (max-width: 768px) {
+    padding-top: 40px;
+  }
+
+  .video-blk {
+    /* Heading */
+    .video-heading {
+      font-family: "DM Sans";
+      font-weight: 200;
+      font-style: ExtraLight;
+      font-size: 60px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      text-align: end;
+      padding-bottom: 3.5rem;
+      margin: 0;
+      @media (max-width: 600px) {
+        font-size: 40px;
+      }
+      span {
+        font-family: "Noto Serif";
+        font-weight: 300;
+        font-style: Display Light;
+        font-size: 90px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        color: #111;
+        @media (max-width: 1024px) {
+          font-size: 45px;
+        }
+           @media (max-width: 600px) {
+        font-size: 35px;
+      }
+      }
+    }
+
+    /* Video Wrapper */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      overflow: hidden;
+      cursor: none; // hide default cursor for GSAP effect
+
+      // Maintain consistent aspect ratio for both thumbnail and iframe
+      aspect-ratio: 16 / 9;
+      background: #000; // fallback in case of slow load
+
+      .video-thumbnail,
+      .video-player iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: none;
+        display: block;
+        transition: opacity 0.4s ease; // smooth fade between img/iframe
+      }
+
+      .video-player {
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+    }
+  }
+
+  /* Description Block */
+  .description-blk {
+    background: $bg-color-30;
+    padding-top: 331px;
+    padding-bottom: 134px;
+    margin-top: -330px;
+    @media (max-width: 768px) {
+      padding-top: 170px;
+      padding-bottom: 45px;
+      margin-top: -200px;
+    }
+    @media (max-width: 380px) {
+        padding-top: 85px;
+        padding-bottom: 45px;
+        margin-top: -125px;
+    }
+    .outer {
+      display: flex;
+      justify-content: flex-end;
+
+      .video-description {
+        max-width: 600px;
+        text-align: left;
+        color: #333;
+        font-size: 15px;
+        line-height: 1.7;
+        padding-top: 6rem;
+
+        p {
+          font-family: "DM Sans";
+          font-weight: 300;
+          font-style: Light;
+          font-size: 18px;
+          line-height: 30px;
+          color: #353535;
+        }
+      }
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 991px) {
+    .video-heading {
+      font-size: 26px;
+
+      span {
+        font-size: 36px;
+      }
+    }
+
+    .video-wrapper {
+      aspect-ratio: 16 / 9; // maintain aspect ratio on mobile too
+    }
+
+    .video-description {
+      text-align: center;
+      font-size: 14px;
+    }
+  }
+
+  .vdo-dec-blk {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
