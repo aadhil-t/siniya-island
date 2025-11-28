@@ -13,6 +13,7 @@ import "../styles/_information.scss";
 import "../styles/_dubai-sec.scss";
 import "../styles/_premium-sec.scss";
 import "../styles/_scroll.scss";
+import "../styles/_popup.scss";
 import Header from "./components/Header";
 import AnimatedButton from "../app/components/Connectbtn"; // adjust path if needed
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -30,9 +31,41 @@ gsap.registerPlugin(ScrollTrigger);
 // AOS //
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import $ from "jquery";
+import "magnific-popup";
 
 export default function Home() {
 
+useEffect(() => {
+  if (typeof window === "undefined") return;
+
+  // Make jQuery global (required for Magnific Popup)
+  const w = window;
+  w.$ = w.jQuery = $;
+
+$(".popup-with-form").magnificPopup({
+  type: "inline",
+  preloader: false,
+  focus: "#name",
+  callbacks: {
+    beforeOpen: function () {
+      const formType = this.st.el.attr("data-form");
+
+      $("#callbackForm, #connectForm").hide();
+
+      if (formType === "callback") {
+        $("#callbackForm").show();
+      } else {
+        $("#connectForm").show();
+      }
+    }
+  }
+});
+
+}, []);
+
+  
+  
   // faq datas //
   const faqs = [
     {
@@ -394,6 +427,21 @@ const toggleFaqAccordion = (index) => {
         cleanupFns.push(() => videoBall.removeEventListener("click", () => {}));
       }
 
+if (ballClass === ".banner-ball") {
+  ball.addEventListener("click", () => {
+    $("#callbackForm, #connectForm").hide();
+    $("#connectForm").show(); // because banner-ball = connect
+
+    $.magnificPopup.open({
+      items: { src: '#test-form' },
+      type: 'inline'
+    });
+  });
+}
+
+
+
+
       cleanupFns.push(() => {
         section.removeEventListener("mousemove", handleMove);
         section.removeEventListener("mouseenter", handleEnter);
@@ -562,9 +610,14 @@ const toggleFaqAccordion = (index) => {
       {/* home banner */}
     <>
       <div className="home-banner">
-        <div className="banner-ball">
+        {/* <div className="banner-ball">
           <span className="ball-text">Connect</span>
-        </div>
+        </div> */}
+
+        <a href="#test-form" className="banner-ball popup-with-form" data-form="connect">
+  <span className="ball-text">Connect</span>
+</a>
+
 
         <div className="bg-image">
           <div className="container">
@@ -580,7 +633,7 @@ const toggleFaqAccordion = (index) => {
             </div>
 
             <div className="media-btn-blk">
-              <Link href="/callback" className="btn primary" data-aos="">
+              <Link href="#test-form" className="btn primary popup-with-form" data-form="callback">
                 Call Back
                 <img
                   src="/assets/homepage/call.svg"
@@ -600,7 +653,7 @@ const toggleFaqAccordion = (index) => {
             </div>
 
             <div className="media-btn-mb-blk">
-              <Link href="/callback" className="btn primary" data-aos="">
+              <Link href="#test-form" className="btn primary popup-with-form"  data-form="callback">
                 <img
                   src="/assets/homepage/call.svg"
                   alt="Call Back"
@@ -1030,53 +1083,51 @@ const toggleFaqAccordion = (index) => {
       </div>
 
       {/* Faq Section */}
-<section className="faq-section">
-  <div className="container">
-    <div className="outer">
+      <section className="faq-section">
+        <div className="container">
+          <div className="outer">
 
-        <div className="faq-left" data-aos="fade-up">
-              <p className="faq-subtitle">Got Questions?</p>
-              <h2 className="faq-title">
-                We've Got <br />
-                <span>Answers!</span>
-              </h2>
+              <div className="faq-left" data-aos="fade-up">
+                    <p className="faq-subtitle">Got Questions?</p>
+                    <h2 className="faq-title">
+                      We've Got <br />
+                      <span>Answers!</span>
+                    </h2>
+                  </div>
+
+            <div className="faq-right">
+              {faqs.map((faq, index) => (
+                <div
+                  className={`faq-item ${faqActiveIndex === index ? "active" : ""}`}
+                  key={index}
+                >
+                  <div
+                    className="faq-header"
+                    onClick={() => toggleFaqAccordion(index)}
+                  >
+                    <span className="faq-number">{faq.number}</span>
+                    <h3 className="faq-question">{faq.question}</h3>
+                  </div>
+
+                  <div
+                    className="faq-content"
+                    style={{
+                      maxHeight:
+                        faqActiveIndex === index && faqContentHeights[index]
+                          ? `${faqContentHeights[index]}px`
+                          : "0px",
+                    }}
+                    ref={(el) => (faqContentRefs.current[index] = el)}
+                  >
+                    <div className="faq-inner">{faq.answer}</div>
+                  </div>
+                </div>
+              ))}
             </div>
 
-      <div className="faq-right">
-        {faqs.map((faq, index) => (
-          <div
-            className={`faq-item ${faqActiveIndex === index ? "active" : ""}`}
-            key={index}
-          >
-            <div
-              className="faq-header"
-              onClick={() => toggleFaqAccordion(index)}
-            >
-              <span className="faq-number">{faq.number}</span>
-              <h3 className="faq-question">{faq.question}</h3>
-            </div>
-
-            <div
-              className="faq-content"
-              style={{
-                maxHeight:
-                  faqActiveIndex === index && faqContentHeights[index]
-                    ? `${faqContentHeights[index]}px`
-                    : "0px",
-              }}
-              ref={(el) => (faqContentRefs.current[index] = el)}
-            >
-              <div className="faq-inner">{faq.answer}</div>
-            </div>
           </div>
-        ))}
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
+        </div>
+      </section>
 
 
       {/* image Section */}
@@ -1087,16 +1138,68 @@ const toggleFaqAccordion = (index) => {
       </div>
 
       {/* information Section */}
-      <div className="information-section">
-          <div className="info-ball">
-            <span className="ball-text">Connect</span>
-          </div> 
+      <div className="information-section"> 
+        <a href="#test-form" className="info-ball popup-with-form" data-form="connect">
+          <span className="ball-text">Connect</span>
+        </a>
         <div className="outer">
           <div className="container">
             <h2 data-aos="fade-up" className="info-title">Need more informations?</h2>
           </div>
         </div>
       </div>
+
+
+    {/* popup */}
+<>
+  {/* 🔳 POPUP FORM */}
+ <form id="test-form" className="white-popup-block mfp-hide">
+
+  {/* CALLBACK FORM */}
+  <div id="callbackForm" className="form-type">
+    <h1>Request a Call Back</h1>
+    <fieldset style={{ border: 0 }}>
+      <ol>
+        <li>
+          <label htmlFor="cb_name">Name</label>
+          <input id="cb_name" name="name" type="text" placeholder="Name" required />
+        </li>
+        <li>
+          <label htmlFor="cb_phone">Phone</label>
+          <input id="cb_phone" name="phone" type="tel" placeholder="Eg. +447500000000" required />
+        </li>
+      </ol>
+      <button type="submit" className="popup-submit-btn">Submit</button>
+    </fieldset>
+  </div>
+
+  {/* CONNECT FORM */}
+  <div id="connectForm" className="form-type">
+    <h1>Connect With Us</h1>
+    <fieldset style={{ border: 0 }}>
+      <ol>
+        <li>
+          <label htmlFor="con_name">Name</label>
+          <input id="con_name" name="name" type="text" placeholder="Name" required />
+        </li>
+
+        <li>
+          <label htmlFor="con_email">Email</label>
+          <input id="con_email" name="email" type="email" placeholder="example@domain.com" required />
+        </li>
+
+        <li>
+          <label htmlFor="con_message">Message</label>
+          <textarea id="con_message" placeholder="Your message"></textarea>
+        </li>
+      </ol>
+      <button type="submit" className="popup-submit-btn">Submit</button>
+    </fieldset>
+  </div>
+
+</form>
+
+</>
 
 
     </main>

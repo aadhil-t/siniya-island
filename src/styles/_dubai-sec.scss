@@ -105,10 +105,13 @@
     }
     .locations-wrapper {
       display: flex;
-      flex-direction: column;
+      // flex-direction: column;
       align-items: flex-start;
       margin-left: 355px;
       gap: 4.2rem;
+      @media (max-width: 850px) {
+        flex-direction: column;
+      }
       @media (max-width: 1291px) {
         margin-left: 0;
       }
