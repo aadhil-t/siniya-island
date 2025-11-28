@@ -111,6 +111,9 @@
   transform: scale(0.96);
 }
 
+.mfp-wrap{
+  z-index: 999999 !important;
+}
 
 /* Animation */
 @keyframes popupFadeIn {
