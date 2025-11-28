@@ -31,37 +31,39 @@ gsap.registerPlugin(ScrollTrigger);
 // AOS //
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import $ from "jquery";
-import "magnific-popup";
+// import $ from "jquery";
+// import "magnific-popup";
 
 export default function Home() {
-
 useEffect(() => {
   if (typeof window === "undefined") return;
 
-  // Make jQuery global (required for Magnific Popup)
-  const w = window;
-  w.$ = w.jQuery = $;
+  (async () => {
+    const jQuery = (await import("jquery")).default;
+    window.$ = window.jQuery = jQuery;
 
-$(".popup-with-form").magnificPopup({
-  type: "inline",
-  preloader: false,
-  focus: "#name",
-  callbacks: {
-    beforeOpen: function () {
-      const formType = this.st.el.attr("data-form");
+    await import("magnific-popup");
 
-      $("#callbackForm, #connectForm").hide();
+    $(".popup-with-form").magnificPopup({
+      type: "inline",
+      preloader: false,
+      focus: "#name",
+      callbacks: {
+        beforeOpen: function () {
+          const formType = this.st.el?.attr("data-form");
 
-      if (formType === "callback") {
-        $("#callbackForm").show();
-      } else {
-        $("#connectForm").show();
+          $("#callbackForm, #connectForm").hide();
+
+          if (formType === "callback") {
+            $("#callbackForm").show();
+          } else {
+            $("#connectForm").show();
+          }
+        }
       }
-    }
-  }
-});
+    });
 
+  })();
 }, []);
 
   
