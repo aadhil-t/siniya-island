@@ -33,8 +33,53 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 // import $ from "jquery";
 // import "magnific-popup";
+import emailjs from "@emailjs/browser";
 
 export default function Home() {
+
+const [isHoverPlaying, setIsHoverPlaying] = useState(false);
+  // ⭐ EMAIL SEND FUNCTION
+  const handleEmailSend = async (e, formType) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    let params = {};
+
+    if (formType === "callback") {
+      params = {
+        user_name: data.name,
+        user_phone: data.phone,
+        message: "Callback request",
+      };
+    } else {
+      params = {
+        user_name: data.name,
+        user_email: data.email,
+        message: data.message || "",
+      };
+    }
+
+    try {
+      await emailjs.send(
+        "service_zi80l2f",     // <-- replace
+        "template_ywxx979",    // <-- replace
+        params,
+        "hRQlQZPMhcZz8n4sV"      // <-- replace
+      );
+
+      alert("Message sent successfully!");
+      e.target.reset();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to send message");
+    }
+  };
+
+  
+
+
 useEffect(() => {
   if (typeof window === "undefined") return;
 
@@ -1154,55 +1199,62 @@ if (ballClass === ".banner-ball") {
 
     {/* popup */}
 <>
-  {/* 🔳 POPUP FORM */}
- <form id="test-form" className="white-popup-block mfp-hide">
+  {/* POPUP WRAPPER (Magnific Popup target) */}
+  <div id="test-form" className="white-popup-block mfp-hide">
 
-  {/* CALLBACK FORM */}
-  <div id="callbackForm" className="form-type">
-    <h1>Request a Call Back</h1>
-    <fieldset style={{ border: 0 }}>
-      <ol>
-        <li>
-          <label htmlFor="cb_name">Name</label>
-          <input id="cb_name" name="name" type="text" placeholder="Name" required />
-        </li>
-        <li>
-          <label htmlFor="cb_phone">Phone</label>
-          <input id="cb_phone" name="phone" type="tel" placeholder="Eg. +447500000000" required />
-        </li>
-      </ol>
-      <button type="submit" className="popup-submit-btn">Submit</button>
-    </fieldset>
+    {/* CALLBACK FORM */}
+    <div id="callbackForm" className="form-type">
+      <h1>Request a Call Back</h1>
+
+      <form onSubmit={(e) => handleEmailSend(e, "callback")}>
+        <fieldset style={{ border: 0 }}>
+          <ol>
+            <li>
+              <label htmlFor="cb_name">Name</label>
+              <input id="cb_name" name="name" type="text" placeholder="Name" required />
+            </li>
+
+            <li>
+              <label htmlFor="cb_phone">Phone</label>
+              <input id="cb_phone" name="phone" type="tel" placeholder="Eg. +447500000000" required />
+            </li>
+          </ol>
+
+          <button type="submit" className="popup-submit-btn">Submit</button>
+        </fieldset>
+      </form>
+    </div>
+
+    {/* CONNECT FORM */}
+    <div id="connectForm" className="form-type">
+      <h1>Connect With Us</h1>
+
+      <form onSubmit={(e) => handleEmailSend(e, "connect")}>
+        <fieldset style={{ border: 0 }}>
+          <ol>
+            <li>
+              <label htmlFor="con_name">Name</label>
+              <input id="con_name" name="name" type="text" placeholder="Name" required />
+            </li>
+
+            <li>
+              <label htmlFor="con_email">Email</label>
+              <input id="con_email" name="email" type="email" placeholder="example@domain.com" required />
+            </li>
+
+            <li>
+              <label htmlFor="con_message">Message</label>
+              <textarea id="con_message" name="message" placeholder="Your message"></textarea>
+            </li>
+          </ol>
+
+          <button type="submit" className="popup-submit-btn">Submit</button>
+        </fieldset>
+      </form>
+    </div>
+
   </div>
-
-  {/* CONNECT FORM */}
-  <div id="connectForm" className="form-type">
-    <h1>Connect With Us</h1>
-    <fieldset style={{ border: 0 }}>
-      <ol>
-        <li>
-          <label htmlFor="con_name">Name</label>
-          <input id="con_name" name="name" type="text" placeholder="Name" required />
-        </li>
-
-        <li>
-          <label htmlFor="con_email">Email</label>
-          <input id="con_email" name="email" type="email" placeholder="example@domain.com" required />
-        </li>
-
-        <li>
-          <label htmlFor="con_message">Message</label>
-          <textarea id="con_message" placeholder="Your message"></textarea>
-        </li>
-      </ol>
-      <button type="submit" className="popup-submit-btn">Submit</button>
-    </fieldset>
-  </div>
-
-</form>
-
 </>
-
 
     </main>
   );
