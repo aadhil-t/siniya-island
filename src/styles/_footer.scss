@@ -33,6 +33,10 @@
         justify-content: space-between;
         padding: 56px 0 59px;
         gap: 50px;
+        
+        a{
+          text-decoration: none;
+        }
 
         @media (max-width: 768px) {
           flex-wrap: wrap;

@@ -21,7 +21,9 @@ export default function Footer() {
           </div>
           <div className="footer-wrapper">
             <div className="footer-left">
-              <p>© 2025. Sobha Heartland II. All rights reserved.</p>
+              <a href="https://propey.com/">
+              <p>© 2025. Propey. All rights reserved.</p>
+              </a>
 
               <div className="social-icons">
                 <Link
