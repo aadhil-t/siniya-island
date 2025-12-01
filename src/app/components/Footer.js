@@ -8,6 +8,17 @@ export default function Footer() {
     <footer className="footer-sec">
       <div className="outer">
         <div className="container">
+          <div className="disclaimer-blk">
+            <p><strong>Disclaimer: </strong>This website is owned and managed by an authorized channel partner. All information provided is for general 
+                guidance only and does not constitute an offer or solicitation. Prices, availability, and project details 
+                are subject to change without notice. Images and visuals are indicative and may not represent the actual 
+                project. While we strive for accuracy, no guarantee is made regarding the completeness or reliability of 
+                the content. Users are advised to verify all information independently and consult appropriate legal or 
+                financial advisors before making any decisions. For the most accurate, updated, and verified details 
+                regarding pricing, availability, specifications, and services, please contact us directly through the 
+                contact information provided on this website.
+              </p>
+          </div>
           <div className="footer-wrapper">
             <div className="footer-left">
               <p>© 2025. Sobha Heartland II. All rights reserved.</p>

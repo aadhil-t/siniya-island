@@ -1,5 +1,27 @@
 .footer-sec {
   .outer {
+    .disclaimer-blk {
+      padding-top: 5rem;
+      strong{
+        font-weight: 600;
+        font-style: SemiBold;
+        font-size: 18px;
+        line-height: 20px;
+        letter-spacing: 0;
+        color: #373732;
+      }
+      p{
+        font-family: "DM Sans";
+        color: black;
+        margin: 0;
+        text-align: left; 
+        font-weight: 300;
+        font-style: Light;
+        font-size: 16px;
+        line-height: 30px;
+        letter-spacing: 0%;
+      }
+    }
     .footer-wrapper {
       .footer-left {
         display: flex;

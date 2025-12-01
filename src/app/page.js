@@ -38,7 +38,7 @@ import emailjs from "@emailjs/browser";
 export default function Home() {
 
 const [isHoverPlaying, setIsHoverPlaying] = useState(false);
-  // ⭐ EMAIL SEND FUNCTION
+  // EMAIL SEND FUNCTION
   const handleEmailSend = async (e, formType) => {
     e.preventDefault();
 
@@ -63,10 +63,10 @@ const [isHoverPlaying, setIsHoverPlaying] = useState(false);
 
     try {
       await emailjs.send(
-        "service_zi80l2f",     // <-- replace
-        "template_ywxx979",    // <-- replace
+        "service_zi80l2f",    
+        "template_ywxx979",   
         params,
-        "hRQlQZPMhcZz8n4sV"      // <-- replace
+        "hRQlQZPMhcZz8n4sV"      
       );
 
       alert("Message sent successfully!");
@@ -1195,6 +1195,8 @@ if (ballClass === ".banner-ball") {
           </div>
         </div>
       </div>
+
+
 
 
     {/* popup */}
